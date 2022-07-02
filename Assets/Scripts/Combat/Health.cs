@@ -37,8 +37,6 @@ namespace RPG.Combat
             isDead = true;
             GetComponent<Animator>().Play("Death_");
             GetComponent<CapsuleCollider>().enabled = false;
-
-        
         }
     }
 }

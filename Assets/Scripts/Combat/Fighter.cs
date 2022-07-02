@@ -59,11 +59,8 @@ namespace RPG.Combat
         // Animation Event
         void Hit()
         {
-            if (target != null)
-            {
-                target.TakeDamage(weaponDamage);
-            }
-            
+            if (target == null) return;
+            target.TakeDamage(weaponDamage);
         }
 
         public bool CanAttack(CombatTarget combatTarget)
