@@ -55727,6 +55727,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wereolf
       objectReference: {fileID: 0}
+    - target: {fileID: 7569076754856004731, guid: 27551e22326b88f4da98f46335c982a8, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4825990463646453006, guid: 27551e22326b88f4da98f46335c982a8, type: 3}
     - {fileID: 8806383335056060972, guid: 27551e22326b88f4da98f46335c982a8, type: 3}
@@ -56415,6 +56419,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1505176920}
   - component: {fileID: 1505176919}
+  - component: {fileID: 1505176921}
   m_Layer: 0
   m_Name: Audio Source
   m_TagString: Untagged
@@ -56532,6 +56537,14 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!81 &1505176921
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1505176918}
+  m_Enabled: 1
 --- !u!1001 &1505495733
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -65742,6 +65755,10 @@ PrefabInstance:
     - target: {fileID: 7011272878793241442, guid: 96dd6794cdc2aea4c9ab3cf543863d6b, type: 3}
       propertyPath: m_Name
       value: Enemy2 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7011272878793241442, guid: 96dd6794cdc2aea4c9ab3cf543863d6b, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 9205724819105948107, guid: 96dd6794cdc2aea4c9ab3cf543863d6b, type: 3}
@@ -80956,6 +80973,10 @@ PrefabInstance:
     - target: {fileID: 7011272878793241442, guid: 96dd6794cdc2aea4c9ab3cf543863d6b, type: 3}
       propertyPath: m_Name
       value: Enemy2 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7011272878793241442, guid: 96dd6794cdc2aea4c9ab3cf543863d6b, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 9205724819105948107, guid: 96dd6794cdc2aea4c9ab3cf543863d6b, type: 3}
