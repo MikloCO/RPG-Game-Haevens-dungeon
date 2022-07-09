@@ -13,12 +13,20 @@ public class FollowCamera : MonoBehaviour
     [SerializeField]
     int z;
 
+    [SerializeField]
+    int rx;
+    [SerializeField]
+    int ry;
+    [SerializeField]
+    int rz;
+
     void LateUpdate()
     {
         //Camera.main.transform.position = Target.up;
 
         transform.position = Target.transform.position + new Vector3(x,y, z);
 
-
+        transform.eulerAngles = new Vector3(transform.eulerAngles.x + rx, transform.eulerAngles.y + ry,
+        transform.eulerAngles.z + rz);
     }
 }
