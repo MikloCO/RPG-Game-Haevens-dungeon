@@ -12,7 +12,7 @@ namespace RPG.UI
         public ManaBar Manabar;
         float manageneration = Mathf.Infinity;
 
-        public float GetMana()
+        public float GetMana() 
         {
             return manaPoints;
         }

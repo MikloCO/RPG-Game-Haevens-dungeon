@@ -12,6 +12,7 @@ namespace RPG.Control
 
         public void IncreaseMinimapSize()
         {
+            if (MinimapCamera == null) return;
             if (MinimapCamera.orthographicSize >= MaxZoom)
             {
                 MinimapCamera.orthographicSize -= 1f;
@@ -19,6 +20,8 @@ namespace RPG.Control
         }
         public void DecreaseMinimapSize()
         {
+            if (MinimapCamera == null) return;
+
             if (MinimapCamera.orthographicSize <= MinZoom)
             {
                 MinimapCamera.orthographicSize += 1f;

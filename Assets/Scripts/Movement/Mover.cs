@@ -5,20 +5,24 @@ using UnityEngine.AI;
 using RPG.Combat;
 using RPG.Core;
 
+
 namespace RPG.Movement
 {
     public class Mover : MonoBehaviour, IAction
     {
-       NavMeshAgent navMeshAgent;
+        NavMeshAgent navMeshAgent;
         [SerializeField] float maxSpeed = 6f;
+        SoundManager sm;
 
         private void Start() {
             navMeshAgent = GetComponent<NavMeshAgent>();
+            sm = GetComponentInChildren<SoundManager>();
         }
 
         void Update()
         {
             UpdateAnimator();
+
         }
 
         public void StartMoveAction(Vector3 destination, float speedFraction)
@@ -29,9 +33,12 @@ namespace RPG.Movement
 
         public void MoveTo(Vector3 destination, float speedFraction)
         {
-            navMeshAgent.destination = destination;
-            navMeshAgent.speed = maxSpeed * Mathf.Clamp01(speedFraction);
-            navMeshAgent.isStopped = false;
+            if (navMeshAgent != null && navMeshAgent.enabled)
+            {
+                navMeshAgent.destination = destination;
+                navMeshAgent.speed = maxSpeed * Mathf.Clamp01(speedFraction);
+                navMeshAgent.isStopped = false;
+            }
         }
 
         public void Cancel()
