@@ -4,10 +4,10 @@ using UnityEngine;
 
 namespace RPG.Audio
 {
-        public enum AudioType
+        public enum AudioTypee
         {
-            SFX_Attack,
-            SFX_FootStep,
-            SFX_FootStepRun,
-    }
+            None,
+            SFX_01,
+            ST_01
+        }
 }

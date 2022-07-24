@@ -2,11 +2,12 @@ using RPG.Combat;
 using RPG.Control;
 using RPG.Movement;
 using UnityEngine;
-
+using RPG.Saving;
+using UnityEditor;
 
 namespace RPG.Core
 {
-    public class Health : MonoBehaviour
+    public class Health : MonoBehaviour, ISaveable
     {
         [SerializeField] float healthPoints = 100f;
 
@@ -27,20 +28,9 @@ namespace RPG.Core
         public void TakeDamage(float damage)
         {
             healthPoints = Mathf.Max(healthPoints - damage, 0);
-            if(healthbar != null)
-            healthbar.SetHealth(healthPoints);
-            //print(healthPoints);
-            if (healthPoints == -1)
-            {
-                GetComponent<Animator>().ResetTrigger("die");
-                print(healthPoints);
-                return;
-            }
-            if (healthPoints == 0)
-            {
-                TriggerDeath();
-                healthPoints = -1;
-            }
+            if (healthbar != null)
+                healthbar.SetHealth(healthPoints);
+            EliminateCharacter();
         }
         public void TriggerDeath()
         {
@@ -76,6 +66,10 @@ namespace RPG.Core
             {
                 GetComponent<UnityEngine.AI.NavMeshAgent>().enabled = false;
             }
+            if(GetComponentInChildren<Canvas>() != null)
+            {
+                GetComponentInChildren<Canvas>().enabled = false;
+            }
         }
 
         private void DisableHealthBar()
@@ -86,6 +80,35 @@ namespace RPG.Core
                 healthbar.SetActive(false);
             }
         }
-    }
 
+        public object CaptureState()
+        {
+            return healthPoints;
+        }
+
+        public void RestoreState(object state)
+        {
+            healthPoints = (float)state;
+            if (healthPoints == -1)
+            {
+                TriggerDeath();
+                GetComponent<Animator>().ResetTrigger("die");
+            }
+        }
+
+        private void EliminateCharacter()
+        {
+            if (healthPoints == -1)
+            {
+                GetComponent<Animator>().ResetTrigger("die");
+                print(healthPoints);
+                return;
+            }
+            if (healthPoints == 0)
+            {
+                TriggerDeath();
+                healthPoints = -1;
+            }
+        }
+    }
 }

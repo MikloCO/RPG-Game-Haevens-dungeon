@@ -4,6 +4,7 @@ using UnityEngine;
 using RPG.Movement;
 using RPG.Core;
 using RPG.UI;
+using RPG.Audio;
 
 namespace RPG.Combat
 {
@@ -13,18 +14,25 @@ namespace RPG.Combat
         [SerializeField] float timeBetweenAttacks = 1f;
         [SerializeField] float weaponDamage = 20f;
 
+
         Health target;
         float timeSinceLastAttack = Mathf.Infinity;
+        float manaRefill = Mathf.Infinity;
+
+        [SerializeField] float manaGenerationTime= 5f;
+
+
 
         private void Update()
         {
             timeSinceLastAttack += Time.deltaTime;
+            manaRefill += Time.deltaTime;
+
+            UpdateMana();
 
             if (target == null)
             {
-            if (GetComponent<Mana>() != null)
-                GetComponent<Mana>().GenerateManaPoints(); 
-            return;
+                return;
             }
 
             if (target.IsDead())
@@ -42,7 +50,6 @@ namespace RPG.Combat
             {
                 GetComponent<Mover>().Cancel();
                 AttackBehaviour();
-
             }
         }
 
@@ -56,6 +63,16 @@ namespace RPG.Combat
                 timeSinceLastAttack = 0;
                 if (GetComponent<Mana>() != null)
                     GetComponent<Mana>().UseMana();
+            }
+        }
+
+        private void UpdateMana()
+        {
+            if(manaRefill > manaGenerationTime)
+            {
+                manaRefill = 0;
+                if (GetComponent<Mana>() != null)
+                    GetComponent<Mana>().GenerateManaPoints();
             }
         }
 

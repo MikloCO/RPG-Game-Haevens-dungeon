@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 2511925325884740183}
   - component: {fileID: 6476582146299794193}
   - component: {fileID: -6959016150821110069}
+  - component: {fileID: 4927250969944050356}
   m_Layer: 0
   m_Name: Character
   m_TagString: Player
@@ -67,7 +68,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f7fe6219756c5f4f8fe4b2f446b32a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
+  maxSpeed: 6
 --- !u!195 &4998961094260734521
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -105,6 +106,7 @@ MonoBehaviour:
   weaponRange: 2
   timeBetweenAttacks: 2
   weaponDamage: 25
+  manaGenerationTime: 5
 --- !u!114 &6476582146299794193
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -130,3 +132,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthPoints: 100
+  healthbar: {fileID: 0}
+--- !u!114 &4927250969944050356
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7974889040877108045}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ea9374b509b70f4bba37e4a2ca8cf00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uniqueIdentifier: 

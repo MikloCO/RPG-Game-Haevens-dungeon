@@ -12,6 +12,14 @@ namespace RPG.SceneManagment
         enum DestinationIdentifier
         {
             A, B, C, D, E
+
+        }
+                Fader fader;
+
+        private void Awake()
+        {
+            fader = FindObjectOfType<Fader>(true);
+
         }
 
 
@@ -42,9 +50,14 @@ namespace RPG.SceneManagment
             }
             DontDestroyOnLoad(gameObject);
 
-            Fader fader= FindObjectOfType<Fader>(true);
-            yield return fader.FadeOut(fadeouttime);  
+            yield return fader.FadeOut(fadeouttime);
+            SavingWrapper wrapper = FindObjectOfType<SavingWrapper>();
+           
+            wrapper.Save();
+            
             yield return SceneManager.LoadSceneAsync(SceneToLoad);
+            
+            wrapper.Load();
 
             Portal otherPortal = GetOtherPortal();
 
@@ -70,8 +83,10 @@ namespace RPG.SceneManagment
         {
             GameObject spawn = GameObject.Find("SpawnPoint");
             GameObject player = GameObject.FindWithTag("Player");
+            player.GetComponent<NavMeshAgent>().enabled = false;
             player.GetComponent<NavMeshAgent>().Warp(spawn.transform.position);
             player.transform.rotation = spawn.transform.rotation;
+            player.GetComponent<NavMeshAgent>().enabled = true;
         }
     }
 }
