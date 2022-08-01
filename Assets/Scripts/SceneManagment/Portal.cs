@@ -38,8 +38,6 @@ namespace RPG.SceneManagment
             }
         }
 
- 
-
         private IEnumerator Transition()
         {
             transform.parent = null;
@@ -48,8 +46,7 @@ namespace RPG.SceneManagment
                 Debug.LogError("Scene to load is not set / empty.");
                 yield break;
             }
-            DontDestroyOnLoad(gameObject);
-
+            fader.EnableFader();
             yield return fader.FadeOut(fadeouttime);
             SavingWrapper wrapper = FindObjectOfType<SavingWrapper>();
            
@@ -65,7 +62,11 @@ namespace RPG.SceneManagment
 
             yield return new WaitForSeconds(fadewaittime);
             yield return fader.FadeIn(fadeintime);
+            fader.DisableFader();
             Destroy(gameObject);
+            Destroy(fader);
+
+
         }
 
         private Portal GetOtherPortal()
@@ -79,12 +80,13 @@ namespace RPG.SceneManagment
             return null;
         }
 
-        private void UpdatePlayer(Portal otherPortal)
+        private void UpdatePlayer(Portal otherportal)
         {
             GameObject spawn = GameObject.Find("SpawnPoint");
             GameObject player = GameObject.FindWithTag("Player");
+            otherportal.transform.position = spawn.transform.position;
             player.GetComponent<NavMeshAgent>().enabled = false;
-            player.GetComponent<NavMeshAgent>().Warp(spawn.transform.position);
+            player.GetComponent<NavMeshAgent>().transform.position = otherportal.transform.position;
             player.transform.rotation = spawn.transform.rotation;
             player.GetComponent<NavMeshAgent>().enabled = true;
         }

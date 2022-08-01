@@ -7,25 +7,17 @@ namespace RPG.SceneManagment
     public class Fader : MonoBehaviour
     {
         CanvasGroup canvasGroup;
+        GameObject FaderImage;
 
         private void Start()
         {
             canvasGroup = GetComponent<CanvasGroup>();
-          //  StartCoroutine(FadeOutIn());
-        }
-
-        IEnumerator FadeOutIn()
-        {
-            yield return FadeOut(3f);
-            print("Faded out");
-            yield return FadeIn(1f);
-            print("Faded in");
-            //canvasGroup.transform.GetChild(0).gameObject.SetActive(false);
+            FaderImage = gameObject.transform.GetChild(0).gameObject;
         }
 
         public IEnumerator FadeOut(float time)
         {
-            while(canvasGroup.alpha < 1)
+            while (canvasGroup.alpha < 1)
             {
                 canvasGroup.alpha += Time.deltaTime / time;
                 yield return null; // Run on next frame
@@ -34,11 +26,25 @@ namespace RPG.SceneManagment
 
         public IEnumerator FadeIn(float time)
         {
-            while (canvasGroup.alpha > 0)
+            if (canvasGroup != null)
             {
-                canvasGroup.alpha -= Time.deltaTime / time;
-                yield return null; // Run on next frame
+                while (canvasGroup.alpha > 0)
+                {
+                    canvasGroup.alpha -= Time.deltaTime / time;
+                    yield return null; // Run on next frame
+                }
             }
+        }
+
+        public void DisableFader()
+        {
+            if(FaderImage != null)
+                FaderImage.SetActive(false);
+        }
+        public void EnableFader()
+        {
+            if (FaderImage != null)
+                FaderImage.SetActive(true);
         }
     }
 }

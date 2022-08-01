@@ -58,7 +58,7 @@ namespace RPG.Core
             {
                 GetComponent<Fighter>().enabled = false;
             }
-            if(this.gameObject.transform.childCount == 2)
+            if(healthbar != null && this.gameObject.transform.childCount == 2)
             {
                 DisableHealthBar();
             }
@@ -75,7 +75,7 @@ namespace RPG.Core
         private void DisableHealthBar()
         {
             GameObject healthbar = this.gameObject.transform.GetChild(1).gameObject;
-            if (healthbar != null && healthbar.name.Equals("EnemyCanvas"))
+            if (this.gameObject.transform.GetChild(1).gameObject != null && healthbar.name.Equals("EnemyCanvas"))
             {
                 healthbar.SetActive(false);
             }

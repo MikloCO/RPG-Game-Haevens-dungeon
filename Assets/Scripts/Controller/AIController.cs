@@ -43,7 +43,7 @@ namespace RPG.Control
         private void Update()
         {
 
-            if (InAttackRangeOfPlayer() && fighter.CanAttack(player))
+            if (InAttackRangeOfPlayer() && fighter != null && fighter.CanAttack(player))
             {
                 AttackBehaviour();
             }
@@ -91,8 +91,11 @@ namespace RPG.Control
             }
             if(dwellingTime > waypointDwellTime)
             {
-                fighter.Cancel();
-                GetComponent<Mover>().MoveTo(nextPosition, patrolSpeedFraction);
+                if(fighter != null)
+                {
+                    fighter.Cancel();
+                    GetComponent<Mover>().MoveTo(nextPosition, patrolSpeedFraction);
+                }
             }
         }
 
