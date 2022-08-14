@@ -13,27 +13,18 @@ namespace RPG.SceneManagment
         enum DestinationIdentifier
         {
             A, B, C, D, E
-
-        }
-                Fader fader;
-
-        private void Awake()
-        {
-            fader = FindObjectOfType<Fader>(true);
-
         }
 
-
-        [SerializeField] String SceneToLoad = "sandbox02";
+        [SerializeField] int sceneToLoad = -1;
         [SerializeField] Transform spawnPoint;
         [SerializeField] DestinationIdentifier destination;
-        [SerializeField] float fadeouttime = 2f;
-        [SerializeField] float fadeintime = 1f;
-        [SerializeField] float fadewaittime = 1f;
+        [SerializeField] float fadeOutTime = 1f;
+        [SerializeField] float fadeInTime = 2f;
+        [SerializeField] float fadeWaitTime = 0.5f;
 
         private void OnTriggerEnter(Collider other)
         {
-            if(other.tag == "Player")
+            if (other.tag == "Player")
             {
                 StartCoroutine(Transition());
             }
@@ -41,41 +32,49 @@ namespace RPG.SceneManagment
 
         private IEnumerator Transition()
         {
-            transform.parent = null;
-            if(SceneToLoad.Equals(""))
+            if (sceneToLoad < 0)
             {
-                Debug.LogError("Scene to load is not set / empty.");
+                Debug.LogError("Scene to load not set.");
                 yield break;
             }
-            
-            fader.EnableFader();
-            yield return fader.FadeOut(fadeouttime);
-            SavingWrapper wrapper = FindObjectOfType<SavingWrapper>();
 
-            wrapper.Save();
-            
-            yield return SceneManager.LoadSceneAsync(SceneToLoad);
+            DontDestroyOnLoad(gameObject);
 
+            Fader fader = FindObjectOfType<Fader>();
+            SavingWrapper savingWrapper = FindObjectOfType<SavingWrapper>();
             PlayerController playerController = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
             playerController.enabled = false;
-            
-            wrapper.Load();
+
+            yield return fader.FadeOut(fadeOutTime);
+
+            savingWrapper.Save();
+
+            yield return SceneManager.LoadSceneAsync(sceneToLoad);
+            PlayerController newPlayerController = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
+            newPlayerController.enabled = false;
+
+
+            savingWrapper.Load();
 
             Portal otherPortal = GetOtherPortal();
             UpdatePlayer(otherPortal);
 
-           
-            wrapper.Save();
+            savingWrapper.Save();
 
-            yield return new WaitForSeconds(fadewaittime);
-            yield return fader.FadeIn(fadeintime);
-            playerController.enabled = true;
+            yield return new WaitForSeconds(fadeWaitTime);
+            fader.FadeIn(fadeInTime);
 
-            fader.DisableFader();
+            newPlayerController.enabled = true;
             Destroy(gameObject);
-            Destroy(fader);
+        }
 
-
+        private void UpdatePlayer(Portal otherPortal)
+        {
+            GameObject player = GameObject.FindWithTag("Player");
+            player.GetComponent<NavMeshAgent>().enabled = false;
+            player.transform.position = otherPortal.spawnPoint.position;
+            player.transform.rotation = otherPortal.spawnPoint.rotation;
+            player.GetComponent<NavMeshAgent>().enabled = true;
         }
 
         private Portal GetOtherPortal()
@@ -84,20 +83,11 @@ namespace RPG.SceneManagment
             {
                 if (portal == this) continue;
                 if (portal.destination != destination) continue;
+
                 return portal;
             }
-            return null;
-        }
 
-        private void UpdatePlayer(Portal otherportal)
-        {
-            GameObject spawn = GameObject.Find("SpawnPoint");
-            GameObject player = GameObject.FindWithTag("Player");
-            otherportal.transform.position = spawn.transform.position;
-            player.GetComponent<NavMeshAgent>().enabled = false;
-            player.GetComponent<NavMeshAgent>().transform.position = otherportal.transform.position;
-            player.transform.rotation = spawn.transform.rotation;
-            player.GetComponent<NavMeshAgent>().enabled = true;
+            return null;
         }
     }
 }
