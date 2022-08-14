@@ -70,6 +70,7 @@ namespace RPG.Core
             {
                 GetComponentInChildren<Canvas>().enabled = false;
             }
+
         }
 
         private void DisableHealthBar()

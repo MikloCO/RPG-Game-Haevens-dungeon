@@ -8,6 +8,11 @@ public class minimap : MonoBehaviour
 
     public Transform player;
 
+    private void Awake()
+    {
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+    }
+
     void LateUpdate()
     {
         Vector3 newPosition = player.position;

@@ -10,11 +10,11 @@ namespace RPG.Combat
 {
     public class Fighter : MonoBehaviour, IAction
     {
-        [SerializeField] float weaponRange = 5f;
         [SerializeField] float timeBetweenAttacks = 1f;
-        [SerializeField] float weaponDamage = 20f;
-        [SerializeField] GameObject weaponPrefab = null;
-        [SerializeField] Transform handTransform = null;
+        [SerializeField] Transform handTransform_R = null;
+        [SerializeField] Transform handTransform_L = null;
+        [SerializeField] Weapon defaultWeapon = null;
+        [SerializeField] string defaultWeaponName = "Unarmed";
 
 
         Health target;
@@ -22,8 +22,14 @@ namespace RPG.Combat
         float manaRefill = Mathf.Infinity;
 
         [SerializeField] float manaGenerationTime= 5f;
+        Weapon currentWeapon = null;
 
 
+        private void Start()
+        {
+            if(currentWeapon == null)
+            EquipWeapon(defaultWeapon);
+        }
 
         private void Update()
         {
@@ -87,8 +93,22 @@ namespace RPG.Combat
         // Animation Event
         void Hit()
         {
-            if (target == null) return;
-            target.TakeDamage(weaponDamage);
+            if (target == null) { return; }
+            target.TakeDamage(currentWeapon.GetWeaponDamage());
+
+        }
+
+        void Shoot()
+        {
+            if (target == null) { return; }
+            if (currentWeapon.HasProjectile())
+            {
+                currentWeapon.LaunchProjectile(handTransform_R, handTransform_L, target);
+            }
+            else
+            {
+                target.TakeDamage(currentWeapon.GetWeaponDamage());
+            }
         }
 
         public bool CanAttack(GameObject combatTarget)
@@ -102,7 +122,7 @@ namespace RPG.Combat
 
         private bool GetIsInRange()
         {
-            return Vector3.Distance(transform.position, target.transform.position) < weaponRange;
+            return Vector3.Distance(transform.position, target.transform.position) < currentWeapon.GetWeaponRange();
         }
 
         public void Attack(GameObject combatTarget)
@@ -117,6 +137,13 @@ namespace RPG.Combat
             GetComponent<Animator>().ResetTrigger("attack");
             GetComponent<Mover>().Cancel();
 
+        }
+
+        public void EquipWeapon(Weapon weapon)
+        {
+            currentWeapon = weapon;
+            Animator animator = GetComponent<Animator>();
+            weapon.Spawn(handTransform_R, handTransform_L, animator);
         }
 
     }
