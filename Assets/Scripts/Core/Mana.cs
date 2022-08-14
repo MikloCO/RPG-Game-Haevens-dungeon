@@ -19,6 +19,7 @@ namespace RPG.UI
 
         public void UseMana()
         {
+            if (Manabar == null) return;
             manaPoints -= manaUsage;
             Manabar.SetMana(manaPoints);
         }

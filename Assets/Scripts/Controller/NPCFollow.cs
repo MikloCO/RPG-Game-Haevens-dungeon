@@ -14,7 +14,7 @@ namespace RPG.Movement
 
         void Start()
         {
-          
+            Player = GameObject.FindGameObjectWithTag("Player");
         }
 
         // Update is called once per frame

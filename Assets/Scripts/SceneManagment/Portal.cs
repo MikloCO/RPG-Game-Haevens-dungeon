@@ -1,3 +1,4 @@
+using RPG.Control;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -46,22 +47,30 @@ namespace RPG.SceneManagment
                 Debug.LogError("Scene to load is not set / empty.");
                 yield break;
             }
+            
             fader.EnableFader();
             yield return fader.FadeOut(fadeouttime);
             SavingWrapper wrapper = FindObjectOfType<SavingWrapper>();
-           
+
             wrapper.Save();
             
             yield return SceneManager.LoadSceneAsync(SceneToLoad);
+
+            PlayerController playerController = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
+            playerController.enabled = false;
             
             wrapper.Load();
 
             Portal otherPortal = GetOtherPortal();
-
             UpdatePlayer(otherPortal);
+
+           
+            wrapper.Save();
 
             yield return new WaitForSeconds(fadewaittime);
             yield return fader.FadeIn(fadeintime);
+            playerController.enabled = true;
+
             fader.DisableFader();
             Destroy(gameObject);
             Destroy(fader);
