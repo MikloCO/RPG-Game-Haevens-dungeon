@@ -6,6 +6,7 @@ using RPG.Core;
 using RPG.UI;
 using RPG.Audio;
 using RPG.Saving;
+using RPG.Attributes;
 
 namespace RPG.Combat
 {
@@ -94,7 +95,7 @@ namespace RPG.Combat
         void Hit()
         {
             if (target == null) { return; }
-            target.TakeDamage(currentWeapon.GetWeaponDamage());
+            target.TakeDamage(gameObject, currentWeapon.GetWeaponDamage());
 
         }
 
@@ -103,11 +104,11 @@ namespace RPG.Combat
             if (target == null) { return; }
             if (currentWeapon.HasProjectile())
             {
-                currentWeapon.LaunchProjectile(handTransform_R, handTransform_L, target);
+                currentWeapon.LaunchProjectile(handTransform_R, handTransform_L, target, gameObject);
             }
             else
             {
-                target.TakeDamage(currentWeapon.GetWeaponDamage());
+                target.TakeDamage(gameObject, currentWeapon.GetWeaponDamage());
             }
         }
 

@@ -112,9 +112,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeBetweenAttacks: 2
-  handTransform_R: {fileID: 5513342221288396377}
-  handTransform_L: {fileID: 4545535183754759468}
-  defaultWeapon: {fileID: 11400000, guid: 6684eb958a2dabb4b8732a158853e833, type: 2}
+  handTransform_R: {fileID: 8313444961065745522}
+  handTransform_L: {fileID: 8604273823955275384}
+  defaultWeapon: {fileID: 11400000, guid: 76e9dd4f4c701f44e8e64f72e3a3806c, type: 2}
   manaGenerationTime: 5
 --- !u!114 &8448089882603790644
 MonoBehaviour:
@@ -715,13 +715,13 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 285100493773852864, guid: ed272cc5dd13a394ebc038a0b0aa7737, type: 3}
   m_PrefabInstance: {fileID: 6701897340372706136}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &4545535183754759468 stripped
+--- !u!4 &8604273823955275384 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 7067573013867327092, guid: ed272cc5dd13a394ebc038a0b0aa7737, type: 3}
+  m_CorrespondingSourceObject: {fileID: 3056089734406679840, guid: ed272cc5dd13a394ebc038a0b0aa7737, type: 3}
   m_PrefabInstance: {fileID: 6701897340372706136}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &5513342221288396377 stripped
+--- !u!4 &8313444961065745522 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 1261781494016390401, guid: ed272cc5dd13a394ebc038a0b0aa7737, type: 3}
+  m_CorrespondingSourceObject: {fileID: 3341290742434324266, guid: ed272cc5dd13a394ebc038a0b0aa7737, type: 3}
   m_PrefabInstance: {fileID: 6701897340372706136}
   m_PrefabAsset: {fileID: 0}

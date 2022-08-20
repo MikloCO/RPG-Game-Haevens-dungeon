@@ -21468,6 +21468,10 @@ PrefabInstance:
       propertyPath: uniqueIdentifier
       value: player
       objectReference: {fileID: 0}
+    - target: {fileID: 7141719048416504188, guid: 5b6b070f438c9c640b70eca35f42219a, type: 3}
+      propertyPath: progression
+      value: 
+      objectReference: {fileID: 11400000, guid: cb80b797c35944d4eab11bb4b4a57a97, type: 2}
     - target: {fileID: 8103997352201586877, guid: 5b6b070f438c9c640b70eca35f42219a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 8.443909
@@ -28405,6 +28409,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 294063480710803429, guid: c2a3eb6f15bee254894796673f248145, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 395055501609989257, guid: c2a3eb6f15bee254894796673f248145, type: 3}
       propertyPath: m_Name
       value: Fireball Pickup
