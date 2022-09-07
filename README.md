@@ -1,5 +1,5 @@
 # RPG-Game-Haevens-dungeon
-
+A project where I follow different courses to create a small RPG-game for fun.
 
 <p><b>Week 36</b></p>
          
