@@ -96,7 +96,6 @@ namespace RPG.Combat
         {
             if (target == null) { return; }
             target.TakeDamage(gameObject, currentWeapon.GetWeaponDamage());
-
         }
 
         void Shoot()
@@ -137,7 +136,6 @@ namespace RPG.Combat
             target = null;
             GetComponent<Animator>().ResetTrigger("attack");
             GetComponent<Mover>().Cancel();
-
         }
 
         public void EquipWeapon(Weapon weapon)

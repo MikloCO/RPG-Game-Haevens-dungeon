@@ -23,7 +23,6 @@ namespace RPG.Combat
         private void Start()
         {
             transform.LookAt(GetAimLocation());
-
         }
 
         // Update is called once per frame
@@ -56,8 +55,14 @@ namespace RPG.Combat
             if (other.GetComponent<Health>() != target) return;
             if (other.GetComponent<Health>().IsDead()) return;
             target.TakeDamage(gameObject, damage);
-
             target.TakeDamage(instigator, damage);
+
+            //Health health = other.GetComponent<Health>();
+            //if (target != null && health != target) return;
+            //if (health == null || health.IsDead()) return;
+            //if (other.gameObject == instigator) return;
+            //health.TakeDamage(instigator, damage);
+
 
             speed = 0f;
 

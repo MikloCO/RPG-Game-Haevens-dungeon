@@ -11,7 +11,6 @@ namespace RPG.Attributes
     public class Health : MonoBehaviour, ISaveable
     {
         [SerializeField] float healthPoints = 100f;
-        int level = 0;
 
         public HealthBar healthbar;
 
@@ -19,7 +18,7 @@ namespace RPG.Attributes
 
         private void Start()
         {
-            healthPoints = GetComponent<BaseStats>().GetHealth();
+            healthPoints = GetComponent<BaseStats>().GetStat(Stat.Health);
         }
 
         public float GetHealth()
@@ -37,8 +36,20 @@ namespace RPG.Attributes
             healthPoints = Mathf.Max(healthPoints - damage, 0);
             if (healthbar != null)
                 healthbar.SetHealth(healthPoints);
+
+            EvolveExperience(instigator);
+
             EliminateCharacter();
         }
+
+        private void EvolveExperience(GameObject instigator)
+        {
+            Experience experience = instigator.GetComponent<Experience>();
+            if (experience == null) return;
+
+            experience.GainExperience(GetComponent<BaseStats>().GetStat(Stat.ExperienceReward));
+        }
+
         public void TriggerDeath()
         {
             isDead = true;
