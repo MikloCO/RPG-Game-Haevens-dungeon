@@ -6,6 +6,9 @@ A project where I follow different courses to create a small RPG-game for fun.
          
 [Week 36.webm](https://user-images.githubusercontent.com/37591806/188963189-d4f0d76d-3183-4882-acbd-b1a24fc4754f.webm)
 
+<b>Current status of project Week 38:</b>
+https://drive.google.com/file/d/1B7hgF_4cqKOoSx9yStEUuOBXnOE0RnvA/view?usp=sharing
+
 <p><b>Week 27</b></p>
 
 ![week_27](https://github.com/MikloCO/RPG-Game-Haevens-dungeon/blob/main/Assets/Documentation/Images/week_27_2022.png?raw=true)
@@ -13,7 +16,4 @@ A project where I follow different courses to create a small RPG-game for fun.
 <p><b>Week 26</b></p>
 
 ![week_26](https://github.com/MikloCO/RPG-Game-Haevens-dungeon/blob/main/Assets/Documentation/Images/week_26_2022.png?raw=true)
-
-<b>Current status of project:</b>
-https://drive.google.com/file/d/1B7hgF_4cqKOoSx9yStEUuOBXnOE0RnvA/view?usp=sharing
 
