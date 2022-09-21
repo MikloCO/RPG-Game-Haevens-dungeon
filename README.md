@@ -14,6 +14,6 @@ A project where I follow different courses to create a small RPG-game for fun.
 
 ![week_26](https://github.com/MikloCO/RPG-Game-Haevens-dungeon/blob/main/Assets/Documentation/Images/week_26_2022.png?raw=true)
 
-
-
+<b>Current status of project:</b>
+https://drive.google.com/file/d/1B7hgF_4cqKOoSx9yStEUuOBXnOE0RnvA/view?usp=sharing
 
