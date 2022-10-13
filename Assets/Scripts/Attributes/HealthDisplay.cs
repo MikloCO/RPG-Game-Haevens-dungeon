@@ -12,9 +12,5 @@ namespace RPG.Attributes
             health = GameObject.FindWithTag("Player").GetComponent<Health>();
         }
 
-        private void Update()
-        {
-            
-        }
     }
 }

@@ -1,6 +1,7 @@
 using RPG.Combat;
 using RPG.Core;
 using RPG.Movement;
+using RPG.Utils;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -26,18 +27,29 @@ namespace RPG.Control
 
         Fighter fighter;
         GameObject player;
-        Vector3 guardLocation;
+        Mover mover;
         float timeSinceLastSawPlayer = Mathf.Infinity;
         float dwellingTime = Mathf.Infinity;
 
-        private void Start()
+        LazyValue<Vector3> guardPosition;
+
+        private void Awake()
         {
-            
             fighter = GetComponent<Fighter>();
             player = GameObject.FindWithTag("Player");
+            mover = GetComponent<Mover>();
+            guardPosition = new LazyValue<Vector3>(GetGuardPosition);
+        
+        }
 
-            guardLocation = transform.position;
-            
+        private Vector3 GetGuardPosition()
+        {
+            return transform.position;
+        }
+
+        private void Start()
+        {
+            guardPosition.ForceInit();
         }
 
         private void Update()
@@ -78,7 +90,7 @@ namespace RPG.Control
 
         private void PatrolBehaviour()
         {
-            Vector3 nextPosition = guardLocation;
+            Vector3 nextPosition = guardPosition.value;
 
             if(patrolpath != null)
             {
@@ -94,7 +106,7 @@ namespace RPG.Control
                 if(fighter != null)
                 {
                     fighter.Cancel();
-                    GetComponent<Mover>().MoveTo(nextPosition, patrolSpeedFraction);
+                    mover.MoveTo(nextPosition, patrolSpeedFraction);
                 }
             }
         }

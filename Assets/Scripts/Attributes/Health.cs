@@ -4,26 +4,64 @@ using UnityEngine;
 using RPG.Saving;
 using RPG.Stats;
 using RPG.Core;
+using RPG.Utils;
 using UnityEditor;
+using System;
 
 namespace RPG.Attributes
 {
     public class Health : MonoBehaviour, ISaveable
     {
-        [SerializeField] float healthPoints = 100f;
+        [SerializeField] float regenerationPercentage = 70f;
+
+        LazyValue<float> healthPoints;
+
+        //[SerializeField] float healthPoints = 100f;
 
         public HealthBar healthbar;
 
         bool isDead = false;
 
+        private void Awake()
+        {
+            healthPoints = new LazyValue<float>(GetInitialHealth); //LazyV will initialize healthpoints before usage.
+        }
+
+        private float GetInitialHealth()
+        {
+            return GetComponent<BaseStats>().GetStat(Stat.Health); ;
+        }
+
         private void Start()
         {
-            healthPoints = GetComponent<BaseStats>().GetStat(Stat.Health);
+            //if(healthPoints < 0)
+            //healthPoints = GetComponent<BaseStats>().GetStat(Stat.Health);
+            healthPoints.ForceInit(); //force value initilization
+        }
+
+        private void OnEnable()
+        {
+            GetComponent<BaseStats>().onLevelUp += RegenerateHealth;
+        }
+        private void OnDisable()
+        {
+            GetComponent<BaseStats>().onLevelUp -= RegenerateHealth;
+        }
+
+        private void RegenerateHealth()
+        {
+            float regenHealthPoints = GetComponent<BaseStats>().GetStat(Stat.Health) * (regenerationPercentage / 100f);
+            healthPoints.value = Mathf.Max(healthPoints.value, regenHealthPoints);
         }
 
         public float GetHealth()
         {
-            return healthPoints;
+            return healthPoints.value;
+        }
+
+        public float GetMaxHealthPoints()
+        {
+            return GetComponent<BaseStats>().GetStat(Stat.Health);
         }
 
         public bool IsDead()
@@ -33,13 +71,15 @@ namespace RPG.Attributes
 
         public void TakeDamage(GameObject instigator, float damage)
         {
-            healthPoints = Mathf.Max(healthPoints - damage, 0);
+            print(gameObject.name + " took damage: " + damage);
+            
+            healthPoints.value = Mathf.Max(healthPoints.value - damage, 0);
+            
             if (healthbar != null)
-                healthbar.SetHealth(healthPoints);
+                healthbar.SetHealth(healthPoints.value);
 
-            EvolveExperience(instigator);
 
-            EliminateCharacter();
+            EliminateCharacter(instigator);
         }
 
         private void EvolveExperience(GameObject instigator)
@@ -48,6 +88,7 @@ namespace RPG.Attributes
             if (experience == null) return;
 
             experience.GainExperience(GetComponent<BaseStats>().GetStat(Stat.ExperienceReward));
+            print(GetComponent<BaseStats>().GetStat(Stat.ExperienceReward));
         }
 
         public void TriggerDeath()
@@ -107,26 +148,29 @@ namespace RPG.Attributes
 
         public void RestoreState(object state)
         {
-            healthPoints = (float)state;
-            if (healthPoints == -1)
+            healthPoints.value = (float)state;
+            if (healthPoints.value == -1)
             {
                 TriggerDeath();
                 GetComponent<Animator>().ResetTrigger("die");
             }
         }
 
-        private void EliminateCharacter()
+        private void EliminateCharacter(GameObject instigator)
         {
-            if (healthPoints == -1)
+            if (healthPoints.value == -1)
             {
                 GetComponent<Animator>().ResetTrigger("die");
                 print(healthPoints);
                 return;
             }
-            if (healthPoints == 0)
+            if (healthPoints.value <= 0)
             {
                 TriggerDeath();
-                healthPoints = -1;
+                healthPoints.value = -1;
+                EvolveExperience(instigator);
+                print(healthPoints + instigator.name);
+
             }
         }
     }

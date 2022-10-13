@@ -54,7 +54,7 @@ namespace RPG.Combat
         {
             if (other.GetComponent<Health>() != target) return;
             if (other.GetComponent<Health>().IsDead()) return;
-            target.TakeDamage(gameObject, damage);
+            //target.TakeDamage(gameObject, damage);
             target.TakeDamage(instigator, damage);
 
             //Health health = other.GetComponent<Health>();

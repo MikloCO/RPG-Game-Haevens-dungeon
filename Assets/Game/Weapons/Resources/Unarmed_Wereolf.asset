@@ -10,12 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 262f75621c604f040a01654587b40f1a, type: 3}
-  m_Name: Sword_Unique
+  m_Name: Unarmed_Wereolf
   m_EditorClassIdentifier: 
-  animWeaponOverride: {fileID: 22100000, guid: cd2f6a1327b628949ac7f394c58ab3c1, type: 2}
-  weaponPrefab: {fileID: 3384970253487286402, guid: 05b1e01a323ccd94c933b349869ecd69, type: 3}
+  animWeaponOverride: {fileID: 22100000, guid: 0d385a9afd35ecf44b602dcf63d3af63, type: 2}
+  weaponPrefab: {fileID: 0}
   weaponRange: 2
-  weaponDamage: 20
-  percentageBonus: 20
+  weaponDamage: 3
   isRightHanded: 1
   projectile: {fileID: 0}

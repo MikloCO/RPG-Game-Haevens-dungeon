@@ -14,7 +14,8 @@ namespace RPG.Movement
         NavMeshAgent navMeshAgent;
         [SerializeField] float maxSpeed = 6f;
 
-        private void Start() {
+        private void Awake()
+        {
             navMeshAgent = GetComponent<NavMeshAgent>();
         }
 
