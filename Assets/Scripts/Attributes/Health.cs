@@ -7,12 +7,16 @@ using RPG.Core;
 using RPG.Utils;
 using UnityEditor;
 using System;
+using UnityEngine.Events;
 
 namespace RPG.Attributes
 {
     public class Health : MonoBehaviour, ISaveable
     {
         [SerializeField] float regenerationPercentage = 70f;
+        [SerializeField] UnityEvent takeDamage;
+        public  UnityEngine.Events.UnityEvent StayWithMe = new UnityEngine.Events.UnityEvent();
+
 
         LazyValue<float> healthPoints;
 
@@ -37,6 +41,7 @@ namespace RPG.Attributes
             //if(healthPoints < 0)
             //healthPoints = GetComponent<BaseStats>().GetStat(Stat.Health);
             healthPoints.ForceInit(); //force value initilization
+       //     StayWithMe.Invoke();
         }
 
         private void OnEnable()
@@ -71,9 +76,21 @@ namespace RPG.Attributes
 
         public void TakeDamage(GameObject instigator, float damage)
         {
+            try
+            {
+
+            StayWithMe.Invoke();
+            }
+            catch (Exception any)
+            {
+                print("WTF IS WRONG");
+                throw;
+            }
+
             print(gameObject.name + " took damage: " + damage);
             
             healthPoints.value = Mathf.Max(healthPoints.value - damage, 0);
+            takeDamage.Invoke();
             
             if (healthbar != null)
                 healthbar.SetHealth(healthPoints.value);
@@ -170,6 +187,7 @@ namespace RPG.Attributes
                 healthPoints.value = -1;
                 EvolveExperience(instigator);
                 print(healthPoints + instigator.name);
+               
 
             }
         }

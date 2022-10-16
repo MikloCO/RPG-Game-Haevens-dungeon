@@ -19,6 +19,7 @@ namespace RPG.Stats
         private void Start()
         {
             repositionXPText = XPTEXTING.GetComponent<RectTransform>();
+            if (repositionXPText != null) 
             XPTEXTING.GetComponent<TextMeshProUGUI>().text = experiencePoints.ToString();
 
             RepositionXPText();
