@@ -14,13 +14,13 @@ namespace RPG.Attributes
     public class Health : MonoBehaviour, ISaveable
     {
         [SerializeField] float regenerationPercentage = 70f;
-        [SerializeField] UnityEvent takeDamage;
-        public  UnityEngine.Events.UnityEvent StayWithMe = new UnityEngine.Events.UnityEvent();
+        [SerializeField] TakeDamageEvent takeDamage;
+
+        [System.Serializable]
+        public class TakeDamageEvent : UnityEvent<float> {} //Bypass that generic classes are not able to work with SerializeField
 
 
         LazyValue<float> healthPoints;
-
-        //[SerializeField] float healthPoints = 100f;
 
         public HealthBar healthbar;
 
@@ -38,10 +38,7 @@ namespace RPG.Attributes
 
         private void Start()
         {
-            //if(healthPoints < 0)
-            //healthPoints = GetComponent<BaseStats>().GetStat(Stat.Health);
             healthPoints.ForceInit(); //force value initilization
-       //     StayWithMe.Invoke();
         }
 
         private void OnEnable()
@@ -76,21 +73,10 @@ namespace RPG.Attributes
 
         public void TakeDamage(GameObject instigator, float damage)
         {
-            try
-            {
-
-            StayWithMe.Invoke();
-            }
-            catch (Exception any)
-            {
-                print("WTF IS WRONG");
-                throw;
-            }
-
             print(gameObject.name + " took damage: " + damage);
             
             healthPoints.value = Mathf.Max(healthPoints.value - damage, 0);
-            takeDamage.Invoke();
+            takeDamage.Invoke(damage);
             
             if (healthbar != null)
                 healthbar.SetHealth(healthPoints.value);
@@ -160,7 +146,7 @@ namespace RPG.Attributes
 
         public object CaptureState()
         {
-            return healthPoints;
+            return healthPoints.value;
         }
 
         public void RestoreState(object state)
@@ -178,7 +164,6 @@ namespace RPG.Attributes
             if (healthPoints.value == -1)
             {
                 GetComponent<Animator>().ResetTrigger("die");
-                print(healthPoints);
                 return;
             }
             if (healthPoints.value <= 0)
@@ -186,8 +171,7 @@ namespace RPG.Attributes
                 TriggerDeath();
                 healthPoints.value = -1;
                 EvolveExperience(instigator);
-                print(healthPoints + instigator.name);
-               
+
 
             }
         }

@@ -13191,7 +13191,6 @@ GameObject:
   - component: {fileID: 2948805610721677844}
   - component: {fileID: 2948805610721677843}
   - component: {fileID: 2948805610721677842}
-  - component: {fileID: 2948805610721677841}
   m_Layer: 5
   m_Name: EnemyCanvas
   m_TagString: Untagged
@@ -13280,19 +13279,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &2948805610721677841
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2948805610721677839}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0cafdb3b02055d64b95a2474183c64eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cam: {fileID: 0}
 --- !u!1 &2955434541875515514
 GameObject:
   m_ObjectHideFlags: 0
@@ -24567,6 +24553,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   regenerationPercentage: 70
+  takeDamage:
+    m_PersistentCalls:
+      m_Calls: []
   healthbar: {fileID: 3010456961861995916}
 --- !u!114 &7164148866371154523
 MonoBehaviour:
